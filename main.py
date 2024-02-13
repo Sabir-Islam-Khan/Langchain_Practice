@@ -10,6 +10,6 @@ budget = st.selectbox("What is your budget range?", ("10000$-20000$", "25000$-40
 is_searched = st.button(label="Search")
 
 if is_searched:
-    response = helper.suggest_cars(car_make, budget)
+    response = helper.calculateAverage(car_make, budget)
     with st.container():
-        st.write(response["text"], type="info")
+        st.write(response)

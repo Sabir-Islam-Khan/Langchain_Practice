@@ -9,29 +9,23 @@ from langchain.agents import AgentType
 
 load_dotenv()
 
-def suggest_cars(car_type, budget):
-    llm = OpenAI(temperature=0.7)
 
-    promptTemplate = PromptTemplate(
-        input_variables=["car_type","budget",],
-        template="I love cars. I want to buy a car. Suggest me 5 cars of {car_type} and my budget is {budget}" )
+def detectEmotion(text):
+    llm = OpenAI(temperature=0.5)
+    promtTemplate = PromptTemplate( 
+        input_variables=["emotion"],
+        template="""You are a masterful human emotion detector. You will be given a human text and you need to judge
+        what emotion category it falls into. It is a response from students about how the class was. So even if they are praising the teacher.
+        Look closely if they want to say its average. Categories are : [Good, Average, Bad]. You should only reply one single word
+        from the category that best desribes the human text. Here is your input: {text}"""
+        )
     
-    name_chain = LLMChain(llm=llm, prompt=promptTemplate)
+    emotion_chain = LLMChain(llm=llm, prompt=promtTemplate)
     
-    response = name_chain({"car_type": car_type, "budget":budget})
+    response = emotion_chain({"text": text})
+    
     return response
 
-def calculateAverage(origin, budget): 
-    llm = OpenAI(temperature = 0.7)
-    tools = load_tools(["wikipedia", "llm-math"], llm=llm)
-    
-    agent = initialize_agent(
-        tools = tools, llm=llm, agent = AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose = True,
-    )
-    
-    result = agent.run("I love loud and noisy cars. I love drift and muscle cars more. My favourite origin country is {origin} and budget is {budget}. Suggest me some cars. Also tell me the average price of cars or my favourite origin.")
-    
-    return result 
 
 
 if __name__ == "__main__":

@@ -14,10 +14,11 @@ def detectEmotion(text):
     llm = OpenAI(temperature=0.5)
     promtTemplate = PromptTemplate( 
         input_variables=["emotion"],
-        template="""You are a masterful human emotion detector. You will be given a human text and you need to judge
-        what emotion category it falls into. It is a response from students about how the class was. So even if they are praising the teacher.
-        Look closely if they want to say its average. Categories are : [Good, Average, Bad]. You should only reply one single word
-        from the category that best desribes the human text. Here is your input: {text}"""
+        template="""You are an expert in understanding student sentiments about their classes. Your task is to categorize the
+        emotion conveyed in the provided text. Imagine you're assessing feedback from university students about their 
+        recent class experience. The categories you'll use are: Good, Average, and Bad. Consider all aspects of the 
+        feedback, including praise, criticism, and nuances in expression. Here is the text you need to evaluate: "{text}"
+        Please respond with one of the following categories: Good, Average, Bad."""
         )
     
     emotion_chain = LLMChain(llm=llm, prompt=promtTemplate)

@@ -5,7 +5,7 @@ st.title("Emotion Category Detector")
 
 st.markdown("<div style='margin-bottom:20px'></div>", unsafe_allow_html=True)
 
-human_text = st.text_area(label="Please enter how you feel:", height=150)
+human_text = st.text_area(label="Please enter how you feel about the class:", height=150)
 
 st.markdown("<div style='margin-bottom:20px'></div>", unsafe_allow_html=True)
 
